@@ -1,14 +1,12 @@
 import vidsettings
-import pifacecad
 import picamera
+import pifacecad
 import inputter
 
-vsettings = vidsettings.vidSettings()
 cad = pifacecad.PiFaceCAD()
-vsettings.setInterval(5)
-vsettings.setNumphotos(10)
-
-inputter.importReader(cad, vsettings)
+vsettings = vidsettings.vidSettings()
+inthread = inputter.importReader()
+inthread.getInput("Specify picture interval in seconds")
 
 
 print(vsettings.getExectime())
