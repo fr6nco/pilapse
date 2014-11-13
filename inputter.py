@@ -32,31 +32,31 @@ class importReader():
     def setmultiplier(self, multiplier):
         self.multiplier = multiplier
 
-    def increaseby10(self):
+    def increaseby10(self, event=None):
         print("Increasing by 10")
         self.value += (self.multiplier * 10)
         self.refreshdisplay()
 
-    def decreaseby10(self):
+    def decreaseby10(self, event=None):
         print("Decreasing by 10")
         self.value -= (self.multiplier * 10)
         if self.value < 0:
             self.value = 0
         self.refreshdisplay()
 
-    def increaseby1(self):
+    def increaseby1(self, event=None):
         print("Increasing by 1")
         self.value += self.multiplier
         self.refreshdisplay()
 
-    def decreaseby1(self):
+    def decreaseby1(self, event=None):
         print("Decreasing by 1")
         self.value -=(self.multiplier)
         if self.value < 0:
             self.value = 0
         self.refreshdisplay()
 
-    def submitbutton(self):
+    def submitbutton(self, event=None):
         self.submitwait.wait()
 
 
@@ -65,7 +65,7 @@ class importReader():
         self.cad.lcd.set_cursor(0,0)
         self.cad.lcd.write(self.questionmsg)
         self.cad.lcd.set_cursor(0,1)
-        self.cad.lcd.write(self.value)
+        self.cad.lcd.write(str(self.value))
 
 
     def getInput(self, questionmsg):
@@ -75,16 +75,17 @@ class importReader():
         self.cad.lcd.set_cursor(0,0)
         self.cad.lcd.write(questionmsg)
         self.cad.lcd.set_cursor(0,1)
-        self.cad.lcd.write(self.value)
+        self.cad.lcd.write(str(self.value))
         listener = pifacecad.SwitchEventListener(self.cad)
-        listener.register(0, pifacecad.IODIR_ON, self.increaseby1)
-        listener.register(1, pifacecad.IODIR_ON, self.decreaseby1)
-        listener.register(2, pifacecad.IODIR_ON, self.submitbutton)
+        listener.register(7, pifacecad.IODIR_ON, self.increaseby1)
+        listener.register(6, pifacecad.IODIR_ON, self.decreaseby1)
+        listener.register(5, pifacecad.IODIR_ON, self.submitbutton)
         print("Buttons were registered")
-        self.submitwait = Barrier(2);
-        listener.activate
+        self.submitwait = threading.Barrier(2);
+        listener.activate()
+        print("Am I actively waiting?")
         self.submitwait.wait()
-        listener.deactivate
+        listener.deactivate()
         return self.value
 
 
