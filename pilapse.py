@@ -5,9 +5,9 @@ import inputter
 
 cad = pifacecad.PiFaceCAD()
 vsettings = vidsettings.vidSettings()
-inthread = inputter.importReader()
-inthread.getInput("Specify picture interval in seconds")
-
+inthread = inputter.importReader(cad)
+val = inthread.getInput("Interval ms")
+print(val)
 
 print(vsettings.getExectime())
 

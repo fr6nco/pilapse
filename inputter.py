@@ -14,7 +14,10 @@ class importReader():
         self.multiplier = multiplier
 
     def increaseby10(self):
+        print(self.multiplier)
+        print(self.value)
         self.value += (self.multiplier * 10)
+        print(self.value)
 
     def decreaseby10(self):
         self.value -= (self.multiplier * 10)
@@ -30,6 +33,9 @@ class importReader():
             self.value=0
 
     def getInput(self, questionmsg):
+        self.cad.lcd.clear()
+        self.cad.lcd.backlight_on()
+        self.cad.lcd.set_cursor(0,0)
         self.cad.lcd.write(questionmsg)
         self.cad.lcd.set_cursor(0,1)
         self.cad.lcd.write("0")
@@ -37,9 +43,9 @@ class importReader():
         listener.register(7, pifacecad.IODIR_ON, self.increaseby1)
         listener.register(6, pifacecad.IODIR_ON, self.decreaseby1)
         listener.activate
-
+        self.increaseby10()
         listener.deactivate
-
+        return self.value
 
 
 
