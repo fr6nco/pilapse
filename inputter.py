@@ -56,10 +56,10 @@ class importReader():
             self.value = 0
         self.refreshdisplay()
 
-    def increasemultiplier(self):
+    def increasemultiplier(self, event=None):
         self.multiplier *=10
 
-    def decreasemultiplier(self):
+    def decreasemultiplier(self, event=None):
         if self.multiplier >= 10:
             self.multiplier /=10
         else:
