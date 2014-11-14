@@ -15,7 +15,8 @@ class capturer():
         self.directory = dir
 
     def createFolder(self, name):
-        os.mkdir(self.directoryname + name)
+        os.chdir(self.directory)
+        os.mkdir(name)
 
     def getFullpath(self):
         return self.directory + self.foldername
