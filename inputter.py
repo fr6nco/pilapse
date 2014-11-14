@@ -57,13 +57,14 @@ class importReader():
         self.refreshdisplay()
 
     def increasemultiplier(self, event=None):
-        self.multiplier *=10
+        self.multiplier *= 10
 
     def decreasemultiplier(self, event=None):
-        if self.multiplier >= 10:
-            self.multiplier /=10
-        else:
+        if (self.multiplier / 10) <= 0:
             self.multiplier = 1
+        else:
+            self.multiplier /= 10
+
 
     def submitbutton(self, event=None):
         self.submitwait.wait()
