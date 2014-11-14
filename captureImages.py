@@ -1,5 +1,6 @@
 import os
 import uuid
+from time import sleep
 
 class capturer():
     def __init__(self, vid, camera, cad):
@@ -33,6 +34,7 @@ class capturer():
         for i in range (0, self.vid.getNumphotos):
             self.camera.capture(self.getFullpath() + "/image" + i.zfill(6) + ".jpg");
             self.updateprogressbar(i)
+            sleep(self.vid.getInterval)
 
         return self.getFullpath()
 
