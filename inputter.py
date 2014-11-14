@@ -60,10 +60,10 @@ class importReader():
         self.multiplier *= 10
 
     def decreasemultiplier(self, event=None):
-        if (self.multiplier / 10) <= 0:
+        if (self.multiplier / 10) <= 1:
             self.multiplier = 1
         else:
-            self.multiplier /= 10
+            self.multiplier = int(self.multiplier / 10)
 
 
     def submitbutton(self, event=None):
@@ -87,8 +87,8 @@ class importReader():
         listener.register(1, pifacecad.IODIR_ON, self.decreaseby1)
         listener.register(0, pifacecad.IODIR_ON, self.decreaseby10)
         listener.register(4, pifacecad.IODIR_ON, self.submitbutton)
-        listener.register(6, pifacecad.IODIR_ON, self.increasemultiplier)
-        listener.register(5, pifacecad.IODIR_ON, self.decreasemultiplier)
+        listener.register(7, pifacecad.IODIR_ON, self.increasemultiplier)
+        listener.register(6, pifacecad.IODIR_ON, self.decreasemultiplier)
         print("Buttons were registered")
         self.submitwait = threading.Barrier(2);
         listener.activate()
