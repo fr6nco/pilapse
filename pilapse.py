@@ -19,9 +19,9 @@ vsettings.setNumphotos(val)
 print(vsettings.getExectime())
 
 cad.lcd.clear()
-cad.lcd.write("Capturing the video will take")
+cad.lcd.write("Capture time:")
 cad.lcd.set_cursor(0,1)
-cad.lcd.write(str(vsettings.getExectime() / 60) + " minutes")
+cad.lcd.write( "{:3.2f}".format(vsettings.getExectime() / 60) + " minutes")
 sleep(5)
 cad.lcd.clear()
 
