@@ -20,7 +20,7 @@ threading.Barrier = Barrier
 class importReader():
     def __init__(self, cad=None):
         self.multiplier = 1
-        self.value = 2
+        self.value = 0
         self.questionmsg = None
         if cad is None:
             self.cad = pifacecad.PiFaceCAD()
@@ -59,27 +59,24 @@ class importReader():
     def submitbutton(self, event=None):
         self.submitwait.wait()
 
-
     def refreshdisplay(self):
-        self.cad.lcd.clear()
-        self.cad.lcd.set_cursor(0,0)
-        self.cad.lcd.write(self.questionmsg)
         self.cad.lcd.set_cursor(0,1)
-        self.cad.lcd.write(str(self.value))
-
+        self.cad.lcd.write(repr(self.value).rjust(10))
 
     def getInput(self, questionmsg):
         self.questionmsg = questionmsg
+        self.value = 0
         self.cad.lcd.clear()
         self.cad.lcd.backlight_on()
         self.cad.lcd.set_cursor(0,0)
         self.cad.lcd.write(questionmsg)
-        self.cad.lcd.set_cursor(0,1)
-        self.cad.lcd.write(str(self.value))
+        self.refreshdisplay()
         listener = pifacecad.SwitchEventListener(self.cad)
-        listener.register(7, pifacecad.IODIR_ON, self.increaseby1)
-        listener.register(6, pifacecad.IODIR_ON, self.decreaseby1)
-        listener.register(5, pifacecad.IODIR_ON, self.submitbutton)
+        listener.register(0, pifacecad.IODIR_ON, self.increaseby10)
+        listener.register(1, pifacecad.IODIR_ON, self.increaseby1)
+        listener.register(2, pifacecad.IODIR_ON, self.decreaseby1)
+        listener.register(3, pifacecad.IODIR_ON, self.decreaseby10)
+        listener.register(4, pifacecad.IODIR_ON, self.submitbutton)
         print("Buttons were registered")
         self.submitwait = threading.Barrier(2);
         listener.activate()
