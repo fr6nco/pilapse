@@ -36,7 +36,7 @@ sleep(3)
 os.chdir(folder)
 cad.lcd.clear()
 cad.lcd.write("Generating video")
-subprocess.call('/usr/bin/ffmpeg -r 25 -qscale 2 -i ' + folder + '/image%06d.jpg ' + folder + '/output.mp4', shell=True)
+subprocess.call('/usr/bin/ffmpeg -r 25 -i ' + folder + '/image%06d.jpg -qscale 2 ' + folder + '/output.mp4', shell=True)
 
 cad.lcd.clear()
 cad.lcd.write("output.mp4 ready")
